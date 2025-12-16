@@ -34,25 +34,14 @@ class RomanNumberError():
     pass
 #a) 1994 -> MCMXCIV
 def entero_a_romano(numero):
-                                #Lo primero que hay que hacer es descomponerlo
-                                # 1994 -> ["1","9","9","4"]
-    #numero = str(numero)        #Transformamos en cadena el valor numérico
     numero = "{:0>4d}".format(numero)   #Con format y la cadena {:0>4d} añadimos 0 por delante en una cifra de 4 dígitos
-"""
-    if len(numero)==3:          #Creamos condiciones con if para evitar el problema que tenemos con 
-        numero = "0"+numero     #los número centesimales, decimales y unitarios llenando de 0 sus 
-    elif len(numero)==2:          #respectivos huecos y evitar falsos resultados
-        numero = "00"+numero
-    elif len(numero)==1:
-        numero = "000"+numero
-"""
-    numero_list = list(numero)  #Guardamos en una lista
-    valor_romano = ""           #Un valor vacío para concatenar los valores en romano
+    numero_list = list(numero)          #Guardamos en una lista
+    valor_romano = ""                   #Un valor vacío para concatenar los valores en romano
     cont = 0
     valor_num = 1000
     while cont < len(numero_list):
         numero_list[cont] = int(numero_list[cont])*valor_num
-        valor_romano *= dic_entero_a_romano.get(numero_list[cont],"")
+        valor_romano += dic_entero_a_romano.get(numero_list[cont],"")
         cont +=1
         valor_num /= 10        
         
