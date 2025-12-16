@@ -19,11 +19,11 @@ I -> 1
 
 """
 #Base de datos de los número romanos
-diccionario = {1000: "M",500: "D", 100: "C" ,50: "L", 10: "X", 5:"V", 1:"I"}
-unidades = {1:"I",2:"II",3:"III",4:"IV",5:"V",6:"VI",7:"VII",8:"VIII",9:"IX"}
-decenas = {10:"X",20:"XX",30:"XXX",40:"XL",50:"L",60:"LX",70:"LXX",80:"LXXX",90:"XC"}
-centenas = {100:"C",200:"CC",300:"CCC",400:"CD",500:"D",600:"DC",700:"DCC",800:"DCCC",900:"CM"}
-millares = {1000: "M", 2000: "MM", 3000: "MMM"}
+
+dic_entero_a_romano = {1:"I",2:"II",3:"III",4:"IV",5:"V",6:"VI",7:"VII",8:"VIII",9:"IX",
+                        10:"X",20:"XX",30:"XXX",40:"XL",50:"L",60:"LX",70:"LXX",80:"LXXX",
+                        90:"XC",100:"C",200:"CC",300:"CCC",400:"CD",500:"D",600:"DC",700:"DCC",
+                        800:"DCCC",900:"CM",1000: "M", 2000: "MM", 3000: "MMM"}
 
 
 #primer paso descomponer el numero
@@ -34,27 +34,27 @@ class RomanNumberError():
     pass
 #a) 1994 -> MCMXCIV
 def entero_a_romano(numero):
-    #Lo primero que hay que hacer es descomponerlo
-    # 1994 -> ["1","9","9","4"]
-    numero = str(numero)#Transformamos en cadena el valor numérico
-    numero_list = list(numero)#Guardamos en una lista
-    valor_romano = "" #Un valor vacío para concatenar los valores en romano
-    print(numero_list)
-    for i in range(0,len(numero_list)):
-        if i == 0:
-            numero_list[i] = int(numero_list[i])*1000
-            valor_romano += millares.get(numero_list[i])
-        if i == 1:
-            numero_list[i] = int(numero_list[i])*100
-            valor_romano += centenas.get(numero_list[i])
-        if i == 2:
-            numero_list[i] = int(numero_list[i])*10
-            valor_romano += decenas.get(numero_list[i])
-        if i == 3:
-            numero_list[i] = int(numero_list[i])
-            valor_romano += unidades.get(numero_list[i])
-
-        
+                                #Lo primero que hay que hacer es descomponerlo
+                                # 1994 -> ["1","9","9","4"]
+    #numero = str(numero)        #Transformamos en cadena el valor numérico
+    numero = "{:0>4d}".format(numero)   #Con format y la cadena {:0>4d} añadimos 0 por delante en una cifra de 4 dígitos
+"""
+    if len(numero)==3:          #Creamos condiciones con if para evitar el problema que tenemos con 
+        numero = "0"+numero     #los número centesimales, decimales y unitarios llenando de 0 sus 
+    elif len(numero)==2:          #respectivos huecos y evitar falsos resultados
+        numero = "00"+numero
+    elif len(numero)==1:
+        numero = "000"+numero
+"""
+    numero_list = list(numero)  #Guardamos en una lista
+    valor_romano = ""           #Un valor vacío para concatenar los valores en romano
+    cont = 0
+    valor_num = 1000
+    while cont < len(numero_list):
+        numero_list[cont] = int(numero_list[cont])*valor_num
+        valor_romano *= dic_entero_a_romano.get(numero_list[cont],"")
+        cont +=1
+        valor_num /= 10        
         
     return valor_romano
 

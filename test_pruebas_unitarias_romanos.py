@@ -3,8 +3,11 @@ from main import entero_a_romano
 def test_entero_a_romano():
     assert entero_a_romano(1994) == "MCMXCIV"
 
-def test_prueba2():
-    assert 10 != 20
+def test_entero_a_romano():
+    assert entero_a_romano(3) == "III"
 
-def test_prueba3():
-    assert 10 != "X"
+def test_entero_a_romano():
+    assert entero_a_romano(33) == "XXXIII"
+
+def test_entero_a_romano():
+    assert entero_a_romano(333) == "CCCXXXIII"
